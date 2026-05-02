@@ -1,0 +1,114 @@
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  transition:0.3s;
+}
+
+body.light{
+  background:#f1f5f9;
+  color:black;
+}
+
+.container{
+  width:90%;
+  margin:auto;
+  padding:20px;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  margin:20px 0;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+}
+
+button{
+  padding:10px 15px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(45deg,#6366f1,#8b5cf6);
+  color:white;
+  cursor:pointer;
+}
+
+input{
+  padding:10px;
+  margin:5px;
+  border-radius:8px;
+  border:none;
+}
+
+.courseRow{
+  margin-bottom:10px;
+}
+
+.slotBox button{
+  margin:3px;
+  padding:6px;
+  background:#334155;
+  font-size:12px;
+}
+
+.slotBox button.active{
+  background:#22c55e;
+}
+
+.colorPicker{
+  margin:10px 0;
+}
+
+.colorBox{
+  display:inline-block;
+  width:30px;
+  height:30px;
+  margin:5px;
+  border-radius:50%;
+  cursor:pointer;
+  border:2px solid white;
+}
+
+.colorBox.active{
+  transform:scale(1.2);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+td,th{
+  border:1px solid rgba(255,255,255,0.2);
+  padding:10px;
+  text-align:center;
+}
+
+.default-slot{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+.lunch{
+  color:orange;
+}
+
+.filled{
+  color:white;
+  font-weight:bold;
+  border-radius:6px;
+  animation:pop 0.3s;
+}
+
+@keyframes pop{
+  from{transform:scale(0.8);}
+  to{transform:scale(1);}
+}
