@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FFCS Planner</title>
+
+<title>FFCS Timetable Generator | Clash-Free Schedule Builder</title>
+
+<meta name="description" content="Create clash-free FFCS timetables instantly. Perfect for VIT students.">
+
 <link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -12,17 +18,23 @@
 <div class="container">
 
 <header>
-  <h1> FFCS Builder </h1>
-  <button id="themeToggle">Toggle Theme</button>
+  <h1>FFCS Schedule Builder</h1>
+  <button id="themeToggle">🌙 Toggle Theme</button>
 </header>
+
+<section class="hero">
+  <h2>FFCS Timetable Generator</h2>
+  <p>
+    Create clash-free timetable in seconds. Select slots and generate instantly.
+  </p>
+</section>
 
 <section class="card">
   <h2>Add Courses</h2>
 
   <div id="courseList"></div>
 
-  <!-- COLOR PICKER -->
-  <div class="colorPicker" id="colorPicker"></div>
+  <div id="colorPicker"></div>
 
   <button onclick="addCourse()">+ Add Course</button>
   <button onclick="generate()">Generate Timetable</button>

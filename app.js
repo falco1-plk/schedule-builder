@@ -3,7 +3,7 @@ const courseList = document.getElementById("courseList");
 
 const days = ["MON","TUE","WED","THU","FRI"];
 
-/* FULL SLOT MAP (FIXED INCLUDING 14:50 SLOT) */
+/* SLOT MAP */
 const slotMap = {
 A11:{day:"MON",time:0}, B11:{day:"MON",time:1}, C11:{day:"MON",time:2},
 A21:{day:"MON",time:4}, A14:{day:"MON",time:5}, B21:{day:"MON",time:6}, C21:{day:"MON",time:7},
@@ -21,7 +21,7 @@ A13:{day:"FRI",time:0}, B13:{day:"FRI",time:1}, C13:{day:"FRI",time:2},
 A23:{day:"FRI",time:4}, C14:{day:"FRI",time:5}, B23:{day:"FRI",time:6}, B24:{day:"FRI",time:7},
 };
 
-/* COLOR SET (changes on refresh) */
+/* 🎨 COLOR SYSTEM */
 let colorSet = [];
 function generateColors(){
   colorSet = [];
@@ -31,19 +31,17 @@ function generateColors(){
 }
 generateColors();
 
-/* COLOR PICKER */
-let selectedColor = colorSet[0];
+let selectedColor = null;
 
+/* COLOR PICKER */
 function renderColorPicker(){
   const picker = document.getElementById("colorPicker");
   picker.innerHTML = "";
 
-  colorSet.forEach((c,i)=>{
+  colorSet.forEach(c=>{
     let div = document.createElement("div");
     div.className = "colorBox";
     div.style.background = c;
-
-    if(i===0) div.classList.add("active");
 
     div.onclick = ()=>{
       selectedColor = c;
@@ -54,10 +52,9 @@ function renderColorPicker(){
     picker.appendChild(div);
   });
 }
-
 renderColorPicker();
 
-/* INIT TABLE */
+/* TABLE INIT */
 function initTable(){
   tableBody.innerHTML = "";
 
@@ -65,7 +62,6 @@ function initTable(){
     let row = `<tr><td>${day}</td>`;
 
     for(let i=0;i<8;i++){
-
       if(i===3){
         row += `<td class="lunch">Lunch</td>`;
       } else {
@@ -73,7 +69,7 @@ function initTable(){
           s=>slotMap[s].day===day && slotMap[s].time===i
         );
 
-        row += `<td id="${day}-${i}" class="default-slot">${slot||""}</td>`;
+        row += `<td id="${day}-${i}">${slot || "-"}</td>`;
       }
     }
 
@@ -81,10 +77,9 @@ function initTable(){
     tableBody.innerHTML += row;
   });
 }
-
 initTable();
 
-/* ADD COURSE */
+/* COURSES */
 let courses = [];
 
 function addCourse(){
@@ -116,7 +111,6 @@ function addCourse(){
   courses.push(id);
 }
 
-/* REMOVE */
 function removeCourse(id){
   document.getElementById(`sub-${id}`).parentElement.remove();
   courses = courses.filter(c=>c!==id);
@@ -129,31 +123,33 @@ function generate(){
 
   for(let id of courses){
 
-    let subject = document.getElementById(`sub-${id}`).value;
-    let faculty = document.getElementById(`fac-${id}`).value;
-
+    let subject = document.getElementById(`sub-${id}`).value.trim();
+    let faculty = document.getElementById(`fac-${id}`).value.trim();
     let selected = document.querySelectorAll(`#slots-${id} button.active`);
+
+    if(!subject || !faculty || selected.length === 0){
+      alert("⚠️ Fill all fields & select slots");
+      continue;
+    }
+
+    /* 🎨 USE SELECTED OR RANDOM */
+    let courseColor = selectedColor || colorSet[Math.floor(Math.random()*colorSet.length)];
 
     for(let btn of selected){
 
       let slot = btn.innerText;
       let {day,time} = slotMap[slot];
-
       let key = `${day}-${time}`;
 
       if(occupied[key]){
-        alert("⚠️ Clash detected!");
-        initTable();
-        return;
+        alert(`⚠️ Clash at ${slot}`);
+        continue;
       }
 
       occupied[key] = true;
 
       let cell = document.getElementById(key);
-
-      cell.className = "filled";
-      cell.style.background = selectedColor;
-
+      cell.style.background = courseColor;
       cell.innerHTML = `
         <div>${subject}</div>
         <small>${faculty}</small>
